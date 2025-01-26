@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+        }
+
+        nav.navbar {
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            font-size: 48px;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 20px;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .card {
+            border-radius: 15px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(12px);
+            box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .card-header {
+            background: rgba(0, 0, 0, 0.5);
+            color: #ffc107;
+            font-weight: 700;
+        }
+
+
+        .form-control {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            border-radius: 10px;
+            padding: 10px;
+        }
+
+        .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .form-control:focus {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: #ffc107;
+            box-shadow: 0 0 5px rgba(255, 193, 7, 0.5);
+        }
+
+        table {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            border-collapse: collapse;
+            backdrop-filter: blur(8px);
+            color: white;
+        }
+
+        table thead {
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        table thead th {
+            color: white;
+        }
+
+        table tbody tr:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .btn {
+            border-radius: 8px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .btn-success:hover {
+            background-color: #218838;
+            transform: translateY(-3px);
+        }
+
+        .btn-warning:hover {
+            background-color: #ffc107;
+            transform: translateY(-3px);
+        }
+
+        .btn-danger:hover {
+            background-color: #dc3545;
+            transform: translateY(-3px);
+        }
+
+        footer {
+            margin-top: auto;
+            text-align: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            color: #ddd;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+
+            .table>:not(caption)>*>*{
+                background-color: rgba(255, 255, 255, 0);
+        }
+            th{
+                color: white;
+            }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">CarSphere</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/admin/dashboard">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/customerview">Customer View</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <h1>Admin Dashboard</h1>
+
+    <!-- Add Vehicle Form -->
+    <div class="card">
+        <div class="card-header">
+            Add New Vehicle
+        </div>
+        <div class="card-body">
+            <form action="/admin/add" method="post" class="row g-3">
+                <div class="col-md-6">
+                    <label for="vehicleName" class="form-label">Vehicle Brand</label>
+                    <input type="text" class="form-control" id="vehicleName" name="name" placeholder="Enter vehicle brand" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="make" class="form-label">Model</label>
+                    <input type="text" class="form-control" id="make" name="make" placeholder="Enter model" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="color" class="form-label">Color</label>
+                    <input type="text" class="form-control" id="color" name="color" placeholder="Enter color" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="year" class="form-label">Year</label>
+                    <input type="number" class="form-control" id="year" name="year" placeholder="Enter year" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="pricePerDay" class="form-label">Price Per Day</label>
+                    <input type="number" class="form-control" id="pricePerDay" name="pricePerDay" placeholder="Enter price per day" required>
+                </div>
+                <div class="col-12">
+                    <button type="submit" class="btn btn-success w-100 py-3">Add Vehicle</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- Vehicle List -->
+    <div class="card">
+        <div class="card-header">
+            Vehicle List
+        </div>
+        <div class="card-body">
+            <table class="table table-hover table-bordered">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Brand</th>
+                    <th>Model</th>
+                    <th>Color</th>
+                    <th>Year</th>
+                    <th>Price Per Day</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="vehicle : ${vehicles}">
+                    <td th:text="${vehicle.id}"></td>
+                    <td th:text="${vehicle.name}"></td>
+                    <td th:text="${vehicle.make}"></td>
+                    <td th:text="${vehicle.color}"></td>
+                    <td th:text="${vehicle.year}"></td>
+                    <td th:text="${vehicle.pricePerDay}"></td>
+                    <td>
+                        <a th:href="@{/admin/edit/{id}(id=${vehicle.id})}" class="btn btn-warning btn-sm">Edit</a>
+                        <a th:href="@{/admin/delete/{id}(id=${vehicle.id})}" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2025 CarSphere. All Rights Reserved.</p>
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
