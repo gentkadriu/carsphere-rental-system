@@ -5,7 +5,8 @@ import com.example.carsphere.services.VehicleService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+
+import java.util.List;
 
 @Controller
 public class CustomerController {
@@ -16,16 +17,14 @@ public class CustomerController {
         this.vehicleService = vehicleService;
     }
 
-    @GetMapping("/customerview")
-    public String customerView(Model model) {
-        model.addAttribute("vehicles", vehicleService.getAllVehicles());
-        return "customerview";
-    }
+    @GetMapping("/")
+    public String customerHome(Model model) {
+        // Fetch all vehicles
+        List<Vehicle> availableVehicles = vehicleService.getAvailableVehicles();
 
-    @GetMapping("/cart/{id}")
-    public String cart(@PathVariable Long id, Model model) {
-        Vehicle vehicle = vehicleService.getVehicleById(id);
-        model.addAttribute("vehicle", vehicle); // Ensure the vehicle object contains pricePerDay
-        return "cart";
+        // Pass the data to the view
+        model.addAttribute("vehicles", availableVehicles);
+
+        return "index";
     }
 }

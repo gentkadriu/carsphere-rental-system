@@ -3,186 +3,245 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Vehicle</title>
-    <!-- Bootstrap CSS -->
+    <title>Carsphere - Edit</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            background: linear-gradient(135deg, #161616, #1e1e1e);
             color: white;
             min-height: 100vh;
             margin: 0;
         }
 
         .navbar {
-            background: rgba(0, 0, 0, 0.8);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
+            background: rgba(34, 34, 34, 0.95);
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.4);
+            width: 100%;
         }
 
         .container {
             max-width: 800px;
-            margin-top: 100px; /* Space below navbar */
-            padding-bottom: 40px; /* Space for content padding */
+            margin-top: 80px; /* Adjusted for better spacing */
+            padding-bottom: 40px;
         }
 
         h1 {
             font-size: 2.5rem;
-            font-weight: 600;
-            margin-bottom: 20px;
-            color: #f8f9fa;
+            font-weight: bold;
             text-align: center;
-            animation: fadeIn 1s ease-in-out;
+            color: #1db954;
+            text-transform: uppercase;
+            margin-bottom: 20px;
         }
 
         .card {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(34, 34, 34, 0.9);
             backdrop-filter: blur(8px);
-            border: none;
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 15px;
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
-            animation: slideInUp 1s ease-in-out;
+            box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.3);
+            padding: 30px;
         }
 
         .card-header {
-            background-color: #ffc107;
-            color: #212529;
-            font-size: 1.25rem;
-            font-weight: 600;
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #1db954;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
         }
 
         .form-label {
-            color: #ffffff;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 500;
         }
 
         .form-control {
-            background: rgba(255, 255, 255, 0.2);
-            border: none;
-            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             color: white;
+            border-radius: 10px;
+            padding: 12px;
         }
 
         .form-control::placeholder {
-            color: rgba(255, 255, 255, 0.7);
+            color: rgba(255, 255, 255, 0.5);
         }
 
         .form-control:focus {
-            background: rgba(255, 255, 255, 0.3);
-            border-color: #ffc107;
-            box-shadow: 0 0 5px rgba(255, 193, 7, 0.5);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 8px rgba(29, 185, 84, 0.6);
+            border-color: #1db954;
         }
 
-        .btn-success {
-            background-color: #28a745;
+        .btn-green {
+            background-color: #1db954;
             border: none;
             padding: 12px 20px;
             font-size: 1rem;
-            font-weight: 600;
+            font-weight: bold;
             transition: all 0.3s ease;
+            border-radius: 8px;
+            width: 100%;
         }
 
-        .btn-success:hover {
-            background-color: #218838;
-            box-shadow: 0 8px 15px rgba(33, 136, 56, 0.3);
+        .btn-green:hover {
+            background-color: #17a54a;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(29, 185, 84, 0.5);
         }
 
-        .btn-secondary {
-            background-color: #6c757d;
+        .btn-gray {
+            background-color: rgba(255, 255, 255, 0.2);
             border: none;
             padding: 12px 20px;
             font-size: 1rem;
-            font-weight: 600;
+            font-weight: bold;
             transition: all 0.3s ease;
+            border-radius: 8px;
+            width: 100%;
+            color: white;
         }
 
-        .btn-secondary:hover {
-            background-color: #5a6268;
-            box-shadow: 0 8px 15px rgba(90, 98, 104, 0.3);
+        .btn-gray:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
         }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
+        .form-group {
+            margin-bottom: 15px;
         }
 
-        @keyframes slideInUp {
-            from {
-                transform: translateY(50px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
+        .navbar-brand {
+            font-weight: bold;
+            text-transform: uppercase;
+            color: white;
+        }
+
+        .nav-link {
+            color: white;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #1db954 !important;
         }
     </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark">
+
+<div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-dark text-white">
+            <div class="modal-header border-0">
+                <h5 class="modal-title" id="logoutModalLabel">
+                    <i class="fas fa-sign-out-alt text-warning"></i> Confirm Logout
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <p>Are you sure you want to log out?</p>
+            </div>
+            <div class="modal-footer border-0 d-flex justify-content-center">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" id="confirmLogoutBtn">Logout</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top shadow-lg">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/">CarSphere</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <a class="navbar-brand fw-bold text-uppercase" href="/">CarSphere</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="/admin/dashboard">Dashboard</a>
+                    <a class="nav-link active" href="/admin/dashboard">
+                        <i class="fas fa-tachometer-alt"></i> Dashboard
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/logout">Logout</a>
+                    <a class="nav-link" href="/">
+                        <i class="fas fa-user"></i> Customer
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <!-- Button to trigger the logout confirmation modal -->
+                    <button type="button" class="btn btn-link nav-link" onclick="confirmLogout()">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
 
+<!-- Hidden Logout Form -->
+<form id="logoutForm" action="/logout" method="post">
+    <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+</form>
+
 <div class="container">
     <h1>Edit Vehicle</h1>
     <div class="card">
-        <div class="card-header">
-            Edit Vehicle Details
-        </div>
+        <div class="card-header">Modify Vehicle Details</div>
         <div class="card-body">
-            <form th:action="@{/admin/edit/{id}(id=${vehicle.id})}" method="post" class="row g-3">
-                <div class="col-md-6">
-                    <label for="vehicleName" class="form-label">Vehicle Name</label>
-                    <input type="text" class="form-control" id="vehicleName" name="name" th:value="${vehicle.name}" placeholder="Enter vehicle name" required>
+            <form th:action="@{/admin/edit/{id}(id=${vehicle.id})}" method="post">
+                <div class="form-group">
+                    <label class="form-label">Brand</label>
+                    <input type="text" class="form-control" name="name" th:value="${vehicle.name}" required>
                 </div>
-                <div class="col-md-6">
-                    <label for="make" class="form-label">Make</label>
-                    <input type="text" class="form-control" id="make" name="make" th:value="${vehicle.make}" placeholder="Enter vehicle make" required>
+                <div class="form-group">
+                    <label class="form-label">Model</label>
+                    <input type="text" class="form-control" name="make" th:value="${vehicle.make}" required>
                 </div>
-                <div class="col-md-6">
-                    <label for="color" class="form-label">Color</label>
-                    <input type="text" class="form-control" id="color" name="color" th:value="${vehicle.color}" placeholder="Enter vehicle color" required>
+                <div class="form-group">
+                    <label class="form-label">Color</label>
+                    <input type="text" class="form-control" name="color" th:value="${vehicle.color}" required>
                 </div>
-                <div class="col-md-6">
-                    <label for="year" class="form-label">Year</label>
-                    <input type="number" class="form-control" id="year" name="year" th:value="${vehicle.year}" placeholder="Enter vehicle year" required>
+                <div class="form-group">
+                    <label class="form-label">Year</label>
+                    <input type="number" class="form-control" name="year" th:value="${vehicle.year}" required>
                 </div>
-                <div class="col-md-6">
-                    <label for="pricePerDay" class="form-label">Price Per Day</label>
-                    <input type="number" class="form-control" id="pricePerDay" name="pricePerDay" th:value="${vehicle.pricePerDay}" placeholder="Enter price per day" required>
+                <div class="form-group">
+                    <label class="form-label">Price Per Day</label>
+                    <input type="number" class="form-control" name="pricePerDay" th:value="${vehicle.pricePerDay}" required>
                 </div>
-                <div class="col-12 text-end">
-                    <button type="submit" class="btn btn-success">Save Changes</button>
-                    <a href="/admin/dashboard" class="btn btn-secondary">Cancel</a>
+                <div class="form-group">
+                    <label class="form-label">Image URL</label>
+                    <input type="text" class="form-control" name="imageUrl" th:value="${vehicle.imageUrl}" required>
+                </div>
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-green">Save Changes</button>
+                    <a href="/admin/dashboard" class="btn btn-gray">Cancel</a>
                 </div>
             </form>
         </div>
     </div>
 </div>
 
-<!-- Bootstrap JS -->
+<script>
+    function confirmLogout() {
+        let logoutModal = new bootstrap.Modal(document.getElementById("logoutModal"));
+        logoutModal.show();
+    }
+
+    document.getElementById("confirmLogoutBtn").addEventListener("click", function () {
+        document.getElementById("logoutForm").submit();
+    });
+</script>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
 </body>
 </html>

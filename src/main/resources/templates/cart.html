@@ -4,79 +4,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cart</title>
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
 
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            background: linear-gradient(135deg, #161616, #1e1e1e);
             color: white;
             min-height: 100vh;
             margin: 0;
             display: flex;
             flex-direction: column;
+            padding-top: 70px;
         }
 
-        nav.navbar {
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        h1 {
-            font-size: 48px;
-            font-weight: bold;
-            text-align: center;
-            margin-top: 20px;
-            animation: fadeIn 1s ease-in-out;
+        .cart-container {
+            max-width: 800px;
+            margin: auto;
         }
 
         .card {
             border-radius: 15px;
-            overflow: hidden;
             background: rgba(255, 255, 255, 0.2);
             backdrop-filter: blur(12px);
             box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
             color: white;
             margin-bottom: 20px;
-        }
-
-        .card-header {
-            background: rgba(0, 0, 0, 0.5);
-            color: #ffc107;
-            font-weight: bold;
+            padding: 20px;
         }
 
         .btn {
             border-radius: 8px;
-            transition: all 0.3s ease-in-out;
-        }
-
-        .btn-primary {
-            background-color: #0d6efd;
-        }
-
-        .btn-primary:hover {
-            background-color: #0a58ca;
-            transform: translateY(-3px);
+            font-weight: bold;
         }
 
         .btn-danger {
-            background-color: #dc3545;
+            background-color: #a60a0a;
+            border: none;
+            color: white;
         }
 
-        .btn-danger:hover {
-            background-color: #bb2d3b;
-            transform: translateY(-3px);
-        }
-
-        .btn-success {
-            background-color: #28a745;
-        }
-
-        .btn-success:hover {
-            background-color: #218838;
-            transform: translateY(-3px);
+        .btn-primary {
+            background-color: #0047b0;
+            border: none;
+            color: white;
         }
 
         .modal-content {
@@ -84,11 +58,10 @@
             background: rgba(255, 255, 255, 0.2);
             backdrop-filter: blur(12px);
             color: white;
-            box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
         }
 
         .modal-header {
-            background: rgba(0, 128, 0, 0.8);
+            background: green;
             color: white;
             font-weight: bold;
         }
@@ -104,79 +77,152 @@
 
         .form-control:focus {
             background: rgba(255, 255, 255, 0.3);
-            border-color: #ffc107;
-            box-shadow: 0 0 5px rgba(255, 193, 7, 0.5);
+            border-color: #1db954;
+            box-shadow: 0 0 5px rgb(35, 152, 26);
         }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
         }
+
+        .navbar {
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 12px 20px;
+            transition: all 0.3s ease-in-out;
+            z-index: 1000;
+        }
+
+
+        .navbar .nav-link {
+            font-size: 16px;
+            transition: color 0.3s ease-in-out;
+        }
+
+        .navbar .nav-link:hover {
+            color: #1db954 !important;
+        }
+
+
+        .navbar .fa-shopping-cart {
+            margin-right: 5px;
+        }
+
+
+        #cart-count {
+            font-size: 14px;
+            font-weight: bold;
+            min-width: 22px;
+            height: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            padding: 4px;
+        }
+
+        .text-green {
+            color: #1db954;
+            font-weight: bold;
+        }
+        .cart-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .remove-btn-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        .vehicle-name {
+            font-size: 22px;
+        }
+
+        .price-text {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+
+
     </style>
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="/">CarSphere</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/logout">Logout</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
-<div class="container mt-5">
-    <h1>Selected Vehicle</h1>
-
-    <div class="card">
-        <div class="card-header">
-            Selected Vehicle Details
-        </div>
-        <div class="card-body">
-            <div class="row">
-                <div class="col-md-6">
-                    <h5>Vehicle Name: <span id="vehicleName" th:text="${vehicle.name}">Vehicle Name</span></h5>
-                    <p>Make: <span id="vehicleMake" th:text="${vehicle.make}">Make</span></p>
-                    <p>Color: <span th:text="${vehicle.color}">Color</span></p>
-                    <p>Year: <span th:text="${vehicle.year}">Year</span></p>
-                    <p>Price Per Day: $<span id="pricePerDay" th:text="${vehicle.pricePerDay}">0.00</span></p>
-                </div>
-                <div class="col-md-6 text-center">
-                    <h5>Rent Days</h5>
-                    <div class="d-flex justify-content-center align-items-center">
-                        <button class="btn btn-danger btn-sm me-2" onclick="changeDays(-1)">-</button>
-                        <input type="number" id="days" class="form-control mx-2" value="1" min="1" readonly>
-                        <button class="btn btn-success btn-sm ms-2" onclick="changeDays(1)">+</button>
-                    </div>
-                </div>
+<!-- Logout Confirmation Modal -->
+<div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-dark text-white">
+            <div class="modal-header border-0">
+                <h5 class="modal-title" id="logoutModalLabel">
+                    <i class="fas fa-sign-out-alt text-warning"></i> Confirm Logout
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <hr>
-            <h4>Total Payment: $<span id="total">0.00</span></h4>
-            <div class="d-flex justify-content-end">
-                <a href="/customerview" class="btn btn-secondary me-2">Go Back</a>
-                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmModal" onclick="populateModal()">Confirm Rental</button>
+            <div class="modal-body text-center">
+                <p>Are you sure you want to log out?</p>
+            </div>
+            <div class="modal-footer border-0 d-flex justify-content-center">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" id="confirmLogoutBtn">Logout</button>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Bootstrap Modal -->
+<form id="logoutForm" action="/logout" method="post">
+    <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+</form>
+
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top shadow-lg">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold text-uppercase" href="/">CarSphere</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto align-items-center">
+                <li class="nav-item" th:if="${username}">
+                    <span class="nav-link text-light">Hello, <span th:text="${username}"></span>!</span>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light fw-semibold" href="/">Home</a>
+                </li>
+                <li class="nav-item position-relative">
+                    <a class="nav-link text-light fw-semibold d-flex align-items-center" href="/cart">
+                        <i class="fas fa-shopping-cart fs-5"></i>
+                        <span id="cart-count" class="badge bg-danger position-absolute top-0 start-100 translate-middle rounded-pill">0</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <button type="button" class="btn btn-link nav-link text-light fw-semibold" onclick="confirmLogout()">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<div class="container mt-5 cart-container">
+    <h1 class="text-center">Your Cart</h1>
+    <div id="cart-items"></div>
+    <div class="text-center mt-4">
+        <button id="clear-cart" class="btn btn-danger">Clear Cart</button>
+        <button id="confirm-rental" class="btn btn-primary" disabled>Confirm Rental</button>
+    </div>
+</div>
+
+<!-- Rental Confirmation Modal -->
 <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -185,57 +231,192 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p>You have successfully booked <span id="modalVehicleName" class="fw-bold"></span>.</p>
-                <p>Your total cost is <span id="modalTotalCost" class="fw-bold"></span>.</p>
-                <p>Your Rent Days: <span id="modalRentDays" class="fw-bold"></span></p>
+                <p>You have successfully booked the following vehicles:</p>
+                <ul id="modalVehicleList"></ul>
+                <p>Total Cost: <span id="modalTotalCost" class="fw-bold">$0.00</span></p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="redirectToHome()">Close</button>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    const pricePerDay = parseFloat(document.getElementById('pricePerDay').textContent);
-    const vehicleName = document.getElementById('vehicleName').textContent;
-    const vehicleMake = document.getElementById('vehicleMake').textContent;
-    const totalEl = document.getElementById('total');
-    const daysInput = document.getElementById('days');
-    const modalRentDays = document.getElementById('modalRentDays');
+    function loadCart() {
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        const cartContainer = document.getElementById("cart-items");
+        cartContainer.innerHTML = "";
+
+        if (cart.length === 0) {
+            cartContainer.innerHTML = "<p class='text-center text-green'>Your cart is empty.</p>";
+            document.getElementById("confirm-rental").disabled = true;
+            return;
+        }
+
+        cart.forEach((vehicle, index) => {
+            let cartItem = document.createElement("div");
+            cartItem.classList.add("card");
+            cartItem.innerHTML = `
+    <div class="cart-item">
+        <h4 class="fw-bold vehicle-name">${vehicle.name} - ${vehicle.make}</h4>
+        <h5 class="text-green price-text">$${vehicle.pricePerDay} per day</h5>
+    </div>
+
+    <label>Pickup Date:</label>
+    <input type="date" class="form-control pickup-date" data-index="${index}">
+    <label>Return Date:</label>
+    <input type="date" class="form-control return-date" data-index="${index}">
+    <h4 class="text-bold pt-1">Total: <span class="total-price">0.00</span></h4>
+
+    <div class="remove-btn-container">
+        <button class="btn btn-danger remove-item p-2 d-flex align-items-center justify-content-center"
+                data-index="${index}" style="width: 40px; height: 40px;">
+            <i class="fas fa-trash"></i>
+        </button>
+    </div>
+`;
+
+
+            cartContainer.appendChild(cartItem);
+        });
+
+        attachRemoveListeners();
+        attachClearCartListener();
+        validateDates();
+        attachConfirmRentalListener();
+    }
+
+    function attachRemoveListeners() {
+        document.querySelectorAll(".remove-item").forEach(button => {
+            button.addEventListener("click", function () {
+                let cart = JSON.parse(localStorage.getItem("cart")) || [];
+                cart.splice(this.dataset.index, 1);
+                localStorage.setItem("cart", JSON.stringify(cart));
+                loadCart();
+            });
+        });
+    }
+
+    function attachClearCartListener() {
+        document.getElementById("clear-cart").addEventListener("click", function () {
+            localStorage.removeItem("cart");
+            loadCart();
+        });
+    }
+
+    function validateDates() {
+        let today = new Date().toISOString().split("T")[0];
+        document.querySelectorAll(".pickup-date").forEach((pickup, index) => {
+            pickup.min = today;
+            pickup.addEventListener("change", function () {
+                let returnDate = document.querySelectorAll(".return-date")[index];
+                returnDate.min = this.value;
+                updateTotal();
+            });
+        });
+
+        document.querySelectorAll(".return-date").forEach(returnDate => {
+            returnDate.addEventListener("change", updateTotal);
+        });
+    }
 
     function updateTotal() {
-        const days = parseInt(daysInput.value);
-        totalEl.textContent = (pricePerDay * days).toFixed(2);
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        let total = 0;
+        let allDatesSelected = true;
+
+        document.querySelectorAll(".card").forEach((card, index) => {
+            let pickupDate = card.querySelector(".pickup-date").value;
+            let returnDate = card.querySelector(".return-date").value;
+            let pricePerDay = parseFloat(cart[index].pricePerDay);
+
+            if (!pickupDate || !returnDate) {
+                allDatesSelected = false;
+                return;
+            }
+
+            let days = (new Date(returnDate) - new Date(pickupDate)) / (1000 * 60 * 60 * 24);
+            if (days > 0) {
+                let vehicleTotal = days * pricePerDay;
+                card.querySelector(".total-price").textContent = `$${vehicleTotal.toFixed(2)}`;
+                total += vehicleTotal;
+            } else {
+                allDatesSelected = false;
+            }
+        });
+
+        document.getElementById("confirm-rental").disabled = !allDatesSelected;
     }
 
-    function changeDays(change) {
-        let days = parseInt(daysInput.value);
-        days += change;
-        if (days < 1) days = 1;
-        daysInput.value = days;
-        updateTotal();
+    function attachConfirmRentalListener() {
+        document.getElementById("confirm-rental").addEventListener("click", function () {
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            let modalVehicleList = document.getElementById("modalVehicleList");
+            let modalTotalCost = document.getElementById("modalTotalCost");
+            let total = 0;
+
+            modalVehicleList.innerHTML = "";
+
+            document.querySelectorAll(".card").forEach((card, index) => {
+                let vehicle = cart[index];
+                let pickupDate = card.querySelector(".pickup-date").value;
+                let returnDate = card.querySelector(".return-date").value;
+                let pricePerDay = parseFloat(vehicle.pricePerDay);
+                let days = (new Date(returnDate) - new Date(pickupDate)) / (1000 * 60 * 60 * 24);
+
+                if (days > 0) {
+                    let vehicleTotal = days * pricePerDay;
+                    total += vehicleTotal;
+                    modalVehicleList.innerHTML += `
+                        <li>
+                            <strong>${vehicle.name} - ${vehicle.make}</strong><br>
+                            Pickup: ${pickupDate} | Return: ${returnDate}<br>
+                            <span class="text-warning">$${vehicleTotal.toFixed(2)}</span>
+                        </li>
+                        <hr>
+                    `;
+                }
+            });
+
+            modalTotalCost.textContent = `$${total.toFixed(2)}`;
+            new bootstrap.Modal(document.getElementById("confirmModal")).show();
+        });
     }
 
-    function calculateRentDates() {
-        const days = parseInt(daysInput.value);
-        const today = new Date();
-        const startDate = today.toLocaleDateString('en-GB');
-        const endDate = new Date(today);
-        endDate.setDate(today.getDate() + days - 1);
-        return `${startDate} - ${endDate.toLocaleDateString('en-GB')}`;
+    function redirectToHome() {
+        localStorage.removeItem("cart");
+        window.location.href = "/";
     }
 
-    function populateModal() {
-        document.getElementById('modalVehicleName').textContent = `${vehicleName} ${vehicleMake}`;
-        document.getElementById('modalTotalCost').textContent = `$${totalEl.textContent}`;
-        modalRentDays.textContent = calculateRentDates();
+    loadCart();
+
+    function updateCartIcon() {
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        let cartCount = document.getElementById("cart-count");
+
+        if (cart.length > 0) {
+            cartCount.textContent = cart.length;
+            cartCount.style.display = "flex";
+        } else {
+            cartCount.textContent = "0";
+            cartCount.style.display = "none";
+        }
     }
 
-    updateTotal();
+    document.addEventListener("DOMContentLoaded", updateCartIcon);
+
+    function confirmLogout() {
+        let logoutModal = new bootstrap.Modal(document.getElementById("logoutModal"));
+        logoutModal.show();
+    }
+
+    document.getElementById("confirmLogoutBtn").addEventListener("click", function () {
+        document.getElementById("logoutForm").submit(); // Submit the existing logout form
+    });
+
 </script>
+
 
 </body>
 </html>
