@@ -14,9 +14,9 @@ public class Vehicle {
     private String color;
     private int year;
     private double pricePerDay;
-    private String imageUrl; // Field for storing the image URL
+    private String imageUrl; 
 
-    // Getters and Setters
+   
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
