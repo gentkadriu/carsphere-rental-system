@@ -20,7 +20,7 @@ public class CartController {
 
     @GetMapping("/cart")
     public String showCart(Model model) {
-        // No need to fetch vehicles from DB since the cart is stored in LocalStorage
+       
         return "cart";
     }
 
@@ -28,6 +28,6 @@ public class CartController {
     public String addToCart(@PathVariable Long id, Model model) {
         Vehicle vehicle = vehicleService.getVehicleById(id);
         model.addAttribute("vehicle", vehicle);
-        return "redirect:/cart";  // Redirects to cart page after adding vehicle
+        return "redirect:/cart"; 
     }
 }
